@@ -1,0 +1,236 @@
+﻿<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a ui-sref="dashboard">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ui-sref="dashboard">Dashboard</a>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title">Family Members </h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="MemberController">
+
+    <div class="form-group">
+        <button type="button" ng-click="modalMember()" class="btn green">Add Family Member</button>
+    </div>
+
+    <table datatable="ng" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>The FamilyMember Id</th>
+                <th>Name</th>
+                <th>Date Of Birth</th>
+                <th>Blood Group</th>
+                <th>Address</th>
+                <th>Emergency Contact Name & No.</th>  
+                <th>Medical Allergy</th>                                            
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in members">
+                <td>{{a.TheFamilyMemberId}}</td>
+                <td>{{a.Name}}</td>
+                <td>{{a.DOB}}</td>
+                <td>{{a.BloodGroup}}</td>
+                <td>{{a.Address}}</td>  
+                <td>{{a.EmergencyContactName_No}}</td> 
+                <td>{{a.MedicalAllergy}}</td>        
+                <td>
+                    <a ng-click="modalMember(a)">Edit</a>                 
+                    <a ng-click="modalMemberView(a.MemberId)">View</a>
+                    <a ng-show="a.IsQRCodeGenerated == 0" ng-click="generateQRBarcode(a.MemberId)">Generate QR Code</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form id="formMember" name="myForm">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal-Member">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add/Edit Family Member</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Name</label>
+                                                <input type="text" ng-model="member.Name" name="Name" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.Name.$dirty && myForm.Name.$invalid"></span>
+                                            </div>           
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="dvTheFamilyMemberId" class="form-group">
+                                                <label class="control-label">The FamilyMember Id</label>
+                                                <input type="text" ng-model="member.TheFamilyMemberId" id="TheFamilyMemberId" name="TheFamilyMemberId" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.TheFamilyMemberId.$dirty && myForm.TheFamilyMemberId.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>               
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Date of Birth</label>
+                                                <input type="text" ng-model="member.DOB" id="datepickerStart" name="DOB" class="form-control" required>
+                                                @*<input type="text" name="datepickerStart" onchange="checkStartTime()" id="datepickerStart" ng-model="requestService.StartDate" class="form-control" required>*@
+                                                <span style="color:red" ng-show="myForm.DOB.$dirty && myForm.DOB.$invalid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Blood Group</label>
+                                                <input type="text" ng-model="member.BloodGroup" name="BloodGroup" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.BloodGroup.$dirty && myForm.BloodGroup.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Address</label>
+                                                @*<input type="text" ng-model="member.Address" name="Address" class="form-control" required>*@
+                                                <textarea ng-model="member.Address" name="Address" class="form-control" required></textarea>
+                                                <span style="color:red" ng-show="myForm.Address.$dirty && myForm.Address.$invalid"></span>
+                                            </div>
+                                        </div>  
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Emergency Contact Name & No.</label>
+                                                <input type="text" ng-model="member.EmergencyContactName_No" name="EmergencyContactName_No" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.EmergencyContactName_No.$dirty && myForm.EmergencyContactName_No.$invalid"></span>
+                                            </div>
+                                        </div>                                                             
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Medical Allergy</label>
+                                                <input type="text" ng-model="member.MedicalAllergy" name="MedicalAllergy" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.MedicalAllergy.$dirty && myForm.MedicalAllergy.$invalid"></span>
+                                            </div>
+                                        </div>                                     
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" ng-click="saveMember(formMember)" class="btn green">Save</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </form>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-MemberView">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">View Family Member</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" style="padding-bottom:20px">
+                                <div class="col-md-12" style="text-align:center">
+                                    <div>
+                                        <label class="control-label"><b>Welcome to the Family Member</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"></div>
+                            <div class="col-md-7">
+                              
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>The FamilyMember Id</b></label>
+                                            <label class="control-label"><b>{{viewMember.TheFamilyMemberId}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>Name:</b></label>
+                                            <label class="control-label"><b>{{viewMember.Name}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>Date of Birth:</b></label>
+                                            <label class="control-label"><b>{{viewMember.DOB}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>Blood Group:</b></label>
+                                            <label class="control-label"><b>{{viewMember.BloodGroup}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>Address:</b></label>
+                                            <label class="control-label"><b>{{viewMember.Address}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>Emergency ContactName & No:</b></label>
+                                            <label class="control-label"><b>{{viewMember.EmergencyContactName_No}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><b>Medical Allergy:</b></label>
+                                            <label class="control-label"><b>{{viewMember.MedicalAllergy}}</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cancel</button>                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+  $(function() {
+      $("#datepickerStart").datepicker({ dateFormat: 'dd/mm/yy' });
+  });
+</script>
+<!-- BEGIN MAIN JS & CSS -->
+@*{
+          minDate: 0,
+         
+      }*@

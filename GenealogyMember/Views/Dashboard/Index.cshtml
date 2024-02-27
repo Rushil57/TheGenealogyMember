@@ -1,0 +1,472 @@
+﻿<!-- BEGIN PAGE HEADER-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a ui-sref="dashboard">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ui-sref="dashboard">Dashboard</a>
+        </li>
+    </ul>    
+</div>
+<h3 class="page-title"> Dashboard </h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="DashboardController">
+
+    <div ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="member">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px">
+                            Family Members
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="user">
+                <div class="dashboard-stat red">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> User </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="assignedservice">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Assigned Services </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="pendingservice">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Pending Services </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="rejectedservice">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px">
+                            Rejected Services
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="completedservice">
+                <div class="dashboard-stat red">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Completed Services </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+    <div ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2">
+        <div class="row">
+            @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="staffmember">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Staff Member </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="customer">
+                <div class="dashboard-stat red">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Customer </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="assignedservice">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Assigned Services </div>
+                        
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="pendingservice">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Pending Services </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="rejectedservice">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Rejected Services </div>
+                        
+                   </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="completedservice">
+                <div class="dashboard-stat red">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Completed Services </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+    @*<div ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 3">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ui-sref="assignedservice">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number" style="font-size:25px"> Assigned Services </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+    <div ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 4">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-click="modalservice()">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            Request
+                        </div>
+                        <div class="desc"> New Service </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-click="modalserviceManual()">
+                <div class="dashboard-stat red">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> Service </div>
+                        <div class="desc"> Manual </div>
+                    </div>
+                </div>
+            </div>*@
+            @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> Profile </div>
+                        <div class="desc"> Access </div>
+                    </div>
+                </div>
+            </div>*@
+            @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number"> Support </div>
+                        <div class="desc"> Inquiries </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-serviceManual" style="z-index:66666 !important">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="height:600px">
+                <div class="modal-body">
+                    <div class="modal-header" style="height:10px;border-bottom:none">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Service Manual</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="dvServiceManualContent" class="col-md-12">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        <form id="formService" name="myForm">
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal-service">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Request Services</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Select Services Type</label>
+                                            <select class="form-control" name='Service' ng-model="requestService.masterServices.ServiceMasterId" required>
+                                                <option value="" selected>-- Please Select -- </option>
+                                                <option data-ng-repeat="t in requestService.masterServices" value="{{t.ServiceMasterId}}">{{t.ServiceName}}</option>
+                                                @*<option value="">-- Please Select --</option>
+                                                <option value='Nurse'>Nurse</option>
+                                                <option value='Medical Attendant'>Medical Attendant</option>
+                                                <option value='Care Taker'>Care Taker</option>
+                                                <option value='Laboratory Assistant'>Laboratory Assistant</option>
+                                                <option value='Physiotherapist'>Physiotherapist</option>*@
+                                            </select>
+                                            <span style="color:red" ng-show="myForm.Service.$dirty && myForm.Service.$invalid"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                           <a ng-click="modalserviceManual()">Service Manual</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Start Date</label>
+                                            <input type="text" name="datepickerStart" onchange="checkStartTime()" id="datepickerStart" ng-model="requestService.StartDate" class="form-control" required>
+                                            <span style="color:red" ng-show="myForm.datepickerStart.$dirty && myForm.datepickerStart.$invalid"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">End Date</label>
+                                            <input type="text" name="datepickerEnd" onchange="checkEndTime()" id="datepickerEnd" ng-model="requestService.EndDate" class="form-control" required>
+                                            <span style="color:red" ng-show="myForm.datepickerEnd.$dirty && myForm.datepickerEnd.$invalid"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Start Time</label>
+                                            <select id="ddlStartTime" class="form-control" disabled name='ddlStartTime' ng-model="requestService.StartTime" required>
+                                                <option value="" selected>-- Please Select --</option>
+                                                <option value='10:00 AM' selected>10:00 AM</option>
+                                                <option value='10:30 AM'>10:30 AM</option>
+                                                <option value='11:00 AM'>11:00 AM</option>
+                                                <option value='11:30 AM'>11:30 AM</option>
+                                                <option value='12:00 PM'>12:00 PM</option>
+                                                <option value='12:30 PM'>12:30 PM</option>
+                                                <option value='01:00 PM'>01:00 PM</option>
+                                                <option value='01:30 PM'>01:30 PM</option>
+                                                <option value='02:00 PM'>02:00 PM</option>
+                                                <option value='02:30 PM'>02:30 PM</option>
+                                                <option value='03:00 PM'>03:00 PM</option>
+                                                <option value='03:30 PM'>03:30 PM</option>
+                                                <option value='04:00 PM'>04:00 PM</option>
+                                                <option value='04:30 PM'>04:30 PM</option>
+                                                <option value='05:00 PM'>05:00 PM</option>
+                                                <option value='05:30 PM'>05:30 PM</option>
+                                                <option value='06:00 PM'>06:00 PM</option>
+                                                <option value='06:30 PM'>06:30 PM</option>
+                                                <option value='07:00 PM'>07:00 PM</option>
+                                            </select>
+                                            <span style="color:red" ng-show="myForm.ddlStartTime.$dirty && myForm.ddlStartTime.$invalid"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">End Time</label>
+                                            <select id="ddlEndTime" class="form-control" disabled name='ddlEndTime' ng-model="requestService.EndTime" required>  
+                                                <option value="" selected>-- Please Select --</option>                                            
+                                                <option value='10:00 AM'>10:00 AM</option>
+                                                <option value='10:30 AM'>10:30 AM</option>
+                                                <option value='11:00 AM'>11:00 AM</option>
+                                                <option value='11:30 AM'>11:30 AM</option>
+                                                <option value='12:00 PM'>12:00 PM</option>
+                                                <option value='12:30 PM'>12:30 PM</option>
+                                                <option value='01:00 PM'>01:00 PM</option>
+                                                <option value='01:30 PM'>01:30 PM</option>
+                                                <option value='02:00 PM'>02:00 PM</option>
+                                                <option value='02:30 PM'>02:30 PM</option>
+                                                <option value='03:00 PM'>03:00 PM</option>
+                                                <option value='03:30 PM'>03:30 PM</option>
+                                                <option value='04:00 PM'>04:00 PM</option>
+                                                <option value='04:30 PM'>04:30 PM</option>
+                                                <option value='05:00 PM'>05:00 PM</option>
+                                                <option value='05:30 PM'>05:30 PM</option>
+                                                <option value='06:00 PM'>06:00 PM</option>
+                                                <option value='06:30 PM'>06:30 PM</option>
+                                                <option value='07:00 PM'>07:00 PM</option>
+                                            </select>
+                                            <span style="color:red" ng-show="myForm.ddlEndTime.$dirty && myForm.ddlEndTime.$invalid"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" ng-click="SaveRequestServices(formService)" class="btn green">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<!-- END MAIN CONTENT -->
+<script>
+  $(function() {
+      $("#datepickerStart").datepicker({
+          minDate: 0,
+          dateFormat: 'dd/mm/yy'
+      });
+      $("#datepickerEnd").datepicker({
+          minDate: 0,
+          dateFormat: 'dd/mm/yy'
+      });
+  });
+  
+  function checkStartTime() {
+      debugger;
+      $("#ddlStartTime").removeAttr("disabled");
+      var da = new Date().toLocaleDateString();
+      var d = new Date();
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var t = h + ":" + m;
+      var rStart = $("#datepickerStart").val().split('/');
+      var dStart = rStart[1] + '/' + rStart[0] + '/' + rStart[2];
+      if (dStart == da)
+      {
+          $("#ddlStartTime option").each(function (i) {
+              
+              if (i > 0)
+              {
+                  var tt = $(this).text();
+                  var hrs = Number(tt.match(/^(\d+)/)[1]);
+                  var mnts = Number(tt.match(/:(\d+)/)[1]);
+                  var format = tt.match(/\s(.*)$/)[1];
+                  if (format == "PM" && hrs < 12) hrs = hrs + 12;
+                  if (format == "AM" && hrs == 12) hrs = hrs - 12;
+                  var hours = hrs.toString();
+                  var minutes = mnts.toString();
+                  if (hrs < 10) hours = "0" + hours;
+                  if (mnts < 10) minutes = "0" + minutes;
+                  var time = hours + ":" + minutes;
+                  if (time <= t) {
+                      $(this).attr("disabled", "disabled");
+                  }
+              }
+             
+        });
+      }
+      else
+      {
+          $("#ddlStartTime option").each(function (i) {
+              $(this).removeAttr("disabled");
+          });
+      }
+  };
+  function checkEndTime() {
+      
+      $("#ddlEndTime").removeAttr("disabled");
+      var da = new Date().toLocaleDateString();
+      var d = new Date();
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var t = h + ":" + m;
+      var rEnd = $("#datepickerEnd").val().split('/');
+      var dEnd = rEnd[1] + '/' + rEnd[0] + '/' + rEnd[2];
+      if (dEnd == da) {
+          $("#ddlEndTime option").each(function (i) {
+             
+              if (i > 0)
+              {
+                  var tt = $(this).text();
+                  var hrs = Number(tt.match(/^(\d+)/)[1]);
+                  var mnts = Number(tt.match(/:(\d+)/)[1]);
+                  var format = tt.match(/\s(.*)$/)[1];
+                  if (format == "PM" && hrs < 12) hrs = hrs + 12;
+                  if (format == "AM" && hrs == 12) hrs = hrs - 12;
+                  var hours = hrs.toString();
+                  var minutes = mnts.toString();
+                  if (hrs < 10) hours = "0" + hours;
+                  if (mnts < 10) minutes = "0" + minutes;
+                  var time = hours + ":" + minutes;
+                  if (time <= t) {
+                      $(this).attr("disabled", "disabled");
+                  }
+              }
+            
+          });
+      }
+      else {
+          $("#ddlEndTime option").each(function (i) {
+              $(this).removeAttr("disabled");
+          });
+      }
+  };
+    Dashboard.init();
+     
+</script>
+<!-- BEGIN MAIN JS & CSS -->

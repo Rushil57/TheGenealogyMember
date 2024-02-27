@@ -1,0 +1,211 @@
+﻿<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a ui-sref="dashboard">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ui-sref="dashboard">Dashboard</a>
+        </li>
+    </ul>
+</div>
+
+<h3 class="page-title"> User </h3>
+
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="UserController">
+
+    <link href="~/Content/basic.css" rel="stylesheet" />
+    <link href="~/Content/dropzone.css" rel="stylesheet" />
+    <script src="~/Scripts/dropzone.js"></script>
+
+    <div class="form-group">
+        <button type="button" ng-click="modalUser()" class="btn green">Add User</button>
+    </div>
+
+    <table datatable="ng" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Zip Code</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in users">
+                <td>{{a.FirstName}} {{a.LastName}}</td>
+                <td>{{a.Email}}</td>
+                <td>{{a.MobileNumber}}</td>
+                <td>{{a.Country}}</td>
+                <td>{{a.State}}</td>
+                <td>{{a.City}}</td>
+                <td>{{a.ZipCode}}</td>
+                <td>
+                    <a ng-click="modalUser(a)">Edit</a>
+                    <a ng-click="deleteUser(a.UserId)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form id="formUser" name="myForm" enctype="multipart/form-data">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal-User">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:5px">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">User</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Select Agency Name</label>
+                                                <select class="form-control" name='AgencyName' ng-model="user.AgencyMasterIdString">
+                                                    <option value="" selected>-- Please Select -- </option>
+                                                    <option data-ng-repeat="t in user.AgencyMasterList" value="{{t.AgencyMasterId}}">{{t.AgencyName}}</option>
+                                                </select>                  
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Select User Category</label>
+                                                <select class="form-control" name='UserCategoryName' ng-model="user.UserCategoryMasterIdString" required>
+                                                    <option value="" selected>-- Please Select -- </option>
+                                                    <option data-ng-repeat="t in user.UserCategoryMasterList" value="{{t.UserCategoryMasterId}}">{{t.UserCategoryName}}</option>
+                                                </select>
+                                                <span style="color:red" ng-show="myForm.UserCategoryName.$dirty && myForm.UserCategoryName.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Select User Type</label>
+                                                <select class="form-control" name='User' ng-model="user.RoleIds" required>
+                                                    <option value="" selected>-- Please Select --</option>                                                  
+                                                    <option value="2">Application User</option>
+                                                    <option value="3">Staff Member</option>
+                                                    <option value="4">Customer</option>                                                   
+                                                </select>
+                                                <span style="color:red" ng-show="myForm.User.$dirty && myForm.User.$invalid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">First Name</label>
+                                                <input type="text" ng-model="user.FirstName" name="FirstName" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.FirstName.$dirty && myForm.FirstName.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Last Name</label>
+                                                <input type="text" ng-model="user.LastName" name="LastName" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.LastName.$dirty && myForm.LastName.$invalid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Email</label>
+                                                <input type="email" ng-model="user.Email" id="Email" name="Email" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.Email.$dirty && myForm.Email.$invalid">
+                                                    @*<span ng-show="myForm.Email.$error.required">Email is required.</span>*@
+                                                    @*<span ng-show="myForm.Email.$error.email">Invalid email address.</span>*@
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="row" ng-hide="user.UserId != 0">*@                               
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Mobile Number</label>
+                                                <input type="text" ng-model="user.MobileNumber" id="MobileNumber" name="MobileNumber" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.MobileNumber.$dirty && myForm.MobileNumber.$invalid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Address</label>
+                                                <textarea ng-model="user.Address" name="Address" class="form-control" required></textarea>
+                                                <span style="color:red" ng-show="myForm.Address.$dirty && myForm.Address.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Country</label>
+                                                <input type="text" ng-model="user.Country" name="Country" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.Country.$dirty && myForm.Country.$invalid"> </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">State</label>
+                                                <input type="text" ng-model="user.State" name="State" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.State.$dirty && myForm.State.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">City</label>
+                                                <input type="text" ng-model="user.City" name="City" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.City.$dirty && myForm.City.$invalid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Zip Code</label>
+                                                <input type="text" ng-model="user.ZipCode" name="ZipCode" class="form-control" required>
+                                                <span style="color:red" ng-show="myForm.ZipCode.$dirty && myForm.ZipCode.$invalid"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin-bottom:10px">
+                                                <label class="control-label">Upload File</label>                             
+                                                <input type="file" name="file" id="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" />                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="padding:10px">
+                        <button type="button" onclick="cancel()" class="btn btn-default">Cancel</button>
+                        <button type="button" ng-click="saveUser(formUser)" class="btn green">Save</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </form>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    function cancel()
+    {
+        $("#modal-User").modal("hide");
+    }
+</script>
+<!-- BEGIN MAIN JS & CSS -->
+

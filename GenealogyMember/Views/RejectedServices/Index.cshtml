@@ -1,0 +1,263 @@
+﻿<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a ui-sref="dashboard">Home</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a ui-sref="dashboard">Dashboard</a>
+        </li>
+    </ul>
+</div>
+<h3 class="page-title">Rejected Services</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="RejectedServicesController">
+    <table datatable="ng" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Service Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Requested By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in rejectedServices">
+                <td>{{a.ServiceName}}</td>
+                <td>{{a.StartDate}}</td>
+                <td>{{a.EndDate}}</td>
+                <td>{{a.Status}}</td>
+                <td>{{a.RequestedBy}}</td>
+
+                <td>
+                   @* <a ng-click="modalStartTimer(a.ServiceId)" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 3">Start Timer</a>*@
+                    <a ng-click="modalRejectedServices(a)" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2 || @(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+   
+    <form id="formRejectedServices" name="myForm">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal-RejectedServices">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Rejected Services</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Services Type</label>
+                                        <select class="form-control" id="ServiceType" name='ServiceType' ng-model="rejectedService.ServiceMasterIdString" required>
+                                            <option data-ng-repeat="t in rejectedService.ServiceMasterList" value="{{t.ServiceMasterId}}">{{t.ServiceName}}</option>
+                                        </select>
+                                        <span style="color:red" ng-show="myForm.Service.$dirty && myForm.Service.$invalid"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Start Date</label>
+                                        <input type="text" name="datepickerStart" onchange="checkStartTime()" id="datepickerStart" ng-model="rejectedService.StartDate" class="form-control" required>
+                                        <span style="color:red" ng-show="myForm.datepickerStart.$dirty && myForm.datepickerStart.$invalid"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">End Date</label>
+                                        <input type="text" name="datepickerEnd" onchange="checkEndTime()" id="datepickerEnd" ng-model="rejectedService.EndDate" class="form-control" required>
+                                        <span style="color:red" ng-show="myForm.datepickerEnd.$dirty && myForm.datepickerEnd.$invalid"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Start Time</label>
+                                        <select id="ddlStartTime" class="form-control" disabled name='ddlStartTime' ng-model="rejectedService.StartTime" required>
+                                            <option value="" selected>-- Please Select --</option>
+                                            <option value='10:00 AM'>10:00 AM</option>
+                                            <option value='10:30 AM'>10:30 AM</option>
+                                            <option value='11:00 AM'>11:00 AM</option>
+                                            <option value='11:30 AM'>11:30 AM</option>
+                                            <option value='12:00 PM'>12:00 PM</option>
+                                            <option value='12:30 PM'>12:30 PM</option>
+                                            <option value='01:00 PM'>01:00 PM</option>
+                                            <option value='01:30 PM'>01:30 PM</option>
+                                            <option value='02:00 PM'>02:00 PM</option>
+                                            <option value='02:30 PM'>02:30 PM</option>
+                                            <option value='03:00 PM'>03:00 PM</option>
+                                            <option value='03:30 PM'>03:30 PM</option>
+                                            <option value='04:00 PM'>04:00 PM</option>
+                                            <option value='04:30 PM'>04:30 PM</option>
+                                            <option value='05:00 PM'>05:00 PM</option>
+                                            <option value='05:30 PM'>05:30 PM</option>
+                                            <option value='06:00 PM'>06:00 PM</option>
+                                            <option value='06:30 PM'>06:30 PM</option>
+                                            <option value='07:00 PM'>07:00 PM</option>
+                                        </select>
+                                        <span style="color:red" ng-show="myForm.ddlStartTime.$dirty && myForm.ddlStartTime.$invalid"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">End Time</label>
+                                        <select id="ddlEndTime" class="form-control" name='ddlEndTime' ng-model="rejectedService.EndTime" required> 
+                                            <option value="" selected>-- Please Select --</option>                                       
+                                            <option value='10:00 AM'>10:00 AM</option>
+                                            <option value='10:30 AM'>10:30 AM</option>
+                                            <option value='11:00 AM'>11:00 AM</option>
+                                            <option value='11:30 AM'>11:30 AM</option>
+                                            <option value='12:00 PM'>12:00 PM</option>
+                                            <option value='12:30 PM'>12:30 PM</option>
+                                            <option value='01:00 PM'>01:00 PM</option>
+                                            <option value='01:30 PM'>01:30 PM</option>
+                                            <option value='02:00 PM'>02:00 PM</option>
+                                            <option value='02:30 PM'>02:30 PM</option>
+                                            <option value='03:00 PM'>03:00 PM</option>
+                                            <option value='03:30 PM'>03:30 PM</option>
+                                            <option value='04:00 PM'>04:00 PM</option>
+                                            <option value='04:30 PM'>04:30 PM</option>
+                                            <option value='05:00 PM'>05:00 PM</option>
+                                            <option value='05:30 PM'>05:30 PM</option>
+                                            <option value='06:00 PM'>06:00 PM</option>
+                                            <option value='06:30 PM'>06:30 PM</option>
+                                            <option value='07:00 PM'>07:00 PM</option>
+                                        </select>
+                                        <span style="color:red" ng-show="myForm.ddlEndTime.$dirty && myForm.ddlEndTime.$invalid"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Status</label>
+                                        <select class="form-control" name='Service' ng-model="rejectedService.Status" required>
+                                            <option value="">-- Please Select --</option>
+                                            <option value='Assigned'>Assigned</option>
+                                            <option value='Rejected'>Rejected</option>
+                                            <option value='Completed'>Completed</option>
+                                            <option value='Pending'>Pending</option>
+                                        </select>
+                                        <span style="color:red" ng-show="myForm.Service.$dirty && myForm.Service.$invalid"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" ng-click="saveRejectedService(formRejectedServices)" class="btn green">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    function showBtnPayment()
+    {
+
+
+
+    }
+    $(function () {
+        $("#datepickerStart").datepicker({
+            minDate: 0,
+            dateFormat: 'dd/mm/yy'
+        });
+        $("#datepickerEnd").datepicker({
+            minDate: 0,
+            dateFormat: 'dd/mm/yy'
+        });
+    });
+
+    function checkStartTime() {
+        
+        $("#ddlStartTime").removeAttr("disabled");
+        var da = new Date().toLocaleDateString();
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var t = h + ":" + m;
+        var rStart = $("#datepickerStart").val().split('/');
+        var dStart = rStart[1] + '/' + rStart[0] + '/' + rStart[2];
+        if (dStart == da) {
+            $("#ddlStartTime option").each(function (i) {
+                
+                if (i > 0) {
+                    var tt = $(this).text();
+                    var hrs = Number(tt.match(/^(\d+)/)[1]);
+                    var mnts = Number(tt.match(/:(\d+)/)[1]);
+                    var format = tt.match(/\s(.*)$/)[1];
+                    if (format == "PM" && hrs < 12) hrs = hrs + 12;
+                    if (format == "AM" && hrs == 12) hrs = hrs - 12;
+                    var hours = hrs.toString();
+                    var minutes = mnts.toString();
+                    if (hrs < 10) hours = "0" + hours;
+                    if (mnts < 10) minutes = "0" + minutes;
+                    var time = hours + ":" + minutes;
+                    if (time <= t) {
+                        $(this).attr("disabled", "disabled");
+                    }
+                }
+
+            });
+        }
+        else {
+            $("#ddlStartTime option").each(function (i) {
+                $(this).removeAttr("disabled");
+            });
+        }
+    };
+    function checkEndTime() {
+       
+        $("#ddlEndTime").removeAttr("disabled");
+        var da = new Date().toLocaleDateString();
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var t = h + ":" + m;
+        var rEnd = $("#datepickerEnd").val().split('/');
+        var dEnd = rEnd[1] + '/' + rEnd[0] + '/' + rEnd[2];
+        if (dEnd == da) {
+            $("#ddlEndTime option").each(function (i) {
+                
+                if (i > 0) {
+                    var tt = $(this).text();
+                    var hrs = Number(tt.match(/^(\d+)/)[1]);
+                    var mnts = Number(tt.match(/:(\d+)/)[1]);
+                    var format = tt.match(/\s(.*)$/)[1];
+                    if (format == "PM" && hrs < 12) hrs = hrs + 12;
+                    if (format == "AM" && hrs == 12) hrs = hrs - 12;
+                    var hours = hrs.toString();
+                    var minutes = mnts.toString();
+                    if (hrs < 10) hours = "0" + hours;
+                    if (mnts < 10) minutes = "0" + minutes;
+                    var time = hours + ":" + minutes;
+                    if (time <= t) {
+                        $(this).attr("disabled", "disabled");
+                    }
+                }
+
+            });
+        }
+        else {
+            $("#ddlEndTime option").each(function (i) {
+                $(this).removeAttr("disabled");
+            });
+        }
+    };
+
+
+
+</script>
+

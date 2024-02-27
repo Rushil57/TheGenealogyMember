@@ -1,0 +1,726 @@
+﻿<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.7
+Version: 4.7.1
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js" data-ng-app="MetronicApp"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js" data-ng-app="MetronicApp"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" data-ng-app="MetronicApp">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <title data-ng-bind="$state.current.data.pageTitle"></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/angular-block-ui.min.css" rel="stylesheet" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN DYMANICLY LOADED CSS FILES(all plugin and page related styles must be loaded between GLOBAL and THEME css files ) -->
+    <link id="ng_load_plugins_before" />
+    <!-- END DYMANICLY LOADED CSS FILES -->
+    <!-- BEGIN THEME STYLES -->
+    <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+    <link href="../assets/global/css/components.min.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="../assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="../assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
+`    @*<link href="~/Content/basic.css" rel="stylesheet" />
+    <link href="~/Content/dropzone.css" rel="stylesheet" />*@
+   
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body ng-controller="AppController" class="page-header-fixed page-sidebar-closed-hide-logo page-on-load" ng-class="{'page-content-white': settings.layout.pageContentWhite,'page-container-bg-solid': settings.layout.pageBodySolid, 'page-sidebar-closed': settings.layout.pageSidebarClosed}">
+    <!-- BEGIN PAGE SPINNER -->
+    <div ng-spinner-bar class="page-spinner-bar">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <!-- END PAGE SPINNER -->
+    <!-- BEGIN HEADER -->
+    <!--<div data-ng-include="'tpl/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top"> </div>-->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <h4 style="color:white">The Family Member</h4>
+                <div class="menu-toggler sidebar-toggler">
+                    <span></span>
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN HEADER SEARCH BOX -->
+            <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+            <form class="search-form hide" action="#" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." name="query">
+                    <span class="input-group-btn">
+                        <a href="javascript:;" class="btn submit">
+                            <i class="icon-magnifier"></i>
+                        </a>
+                    </span>
+                </div>
+            </form>
+            <!-- END HEADER SEARCH BOX -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span></span>
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                        @*<a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span class="badge badge-default"> 7 </span>
+                        </a>*@
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3>
+                                    <span class="bold">12 pending</span> notifications
+                                </h3>
+                                <a href="#/profile/dashboard">view all</a>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">just now</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-success">
+                                                    <i class="fa fa-plus"></i>
+                                                </span> New user registered.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">3 mins</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Server #12 overloaded.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">10 mins</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-warning">
+                                                    <i class="fa fa-bell-o"></i>
+                                                </span> Server #2 not responding.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">14 hrs</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-info">
+                                                    <i class="fa fa-bullhorn"></i>
+                                                </span> Application error.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">2 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Database overloaded 68%.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">3 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> A user IP blocked.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">4 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-warning">
+                                                    <i class="fa fa-bell-o"></i>
+                                                </span> Storage Server #4 not responding dfdfdfd.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">5 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-info">
+                                                    <i class="fa fa-bullhorn"></i>
+                                                </span> System Error.
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="time">9 days</span>
+                                            <span class="details">
+                                                <span class="label label-sm label-icon label-danger">
+                                                    <i class="fa fa-bolt"></i>
+                                                </span> Storage server failed.
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END NOTIFICATION DROPDOWN -->
+                    <!-- BEGIN INBOX DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                        @*<a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <i class="icon-envelope-open"></i>
+                            <span class="badge badge-default"> 4 </span>
+                        </a>*@
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3>
+                                    You have
+                                    <span class="bold">7 New</span> Messages
+                                </h3>
+                                <a href="#/profile/dashboard">view all</a>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                    <li>
+                                        <a href="#/profile/dashboard">
+                                            <span class="photo">
+                                                <img src="../assets/layouts/layout/img/avatar2.jpg" class="img-circle" alt="">
+                                            </span>
+                                            <span class="subject">
+                                                <span class="from"> Lisa Wong </span>
+                                                <span class="time">Just Now </span>
+                                            </span>
+                                            <span class="message"> Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/profile/dashboard">
+                                            <span class="photo">
+                                                <img src="../assets/layouts/layout/img/avatar3.jpg" class="img-circle" alt="">
+                                            </span>
+                                            <span class="subject">
+                                                <span class="from"> Richard Doe </span>
+                                                <span class="time">16 mins </span>
+                                            </span>
+                                            <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/profile/dashboard">
+                                            <span class="photo">
+                                                <img src="../assets/layouts/layout/img/avatar1.jpg" class="img-circle" alt="">
+                                            </span>
+                                            <span class="subject">
+                                                <span class="from"> Bob Nilson </span>
+                                                <span class="time">2 hrs </span>
+                                            </span>
+                                            <span class="message"> Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/profile/dashboard">
+                                            <span class="photo">
+                                                <img src="../assets/layouts/layout/img/avatar2.jpg" class="img-circle" alt="">
+                                            </span>
+                                            <span class="subject">
+                                                <span class="from"> Lisa Wong </span>
+                                                <span class="time">40 mins </span>
+                                            </span>
+                                            <span class="message"> Vivamus sed auctor 40% nibh congue nibh... </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#/profile/dashboard">
+                                            <span class="photo">
+                                                <img src="../assets/layouts/layout/img/avatar3.jpg" class="img-circle" alt="">
+                                            </span>
+                                            <span class="subject">
+                                                <span class="from"> Richard Doe </span>
+                                                <span class="time">46 mins </span>
+                                            </span>
+                                            <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END INBOX DROPDOWN -->
+                    <!-- BEGIN TODO DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+                        @*<a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <i class="icon-calendar"></i>
+                            <span class="badge badge-default"> 3 </span>
+                        </a>*@
+                        <ul class="dropdown-menu extended tasks">
+                            <li class="external">
+                                <h3>
+                                    You have
+                                    <span class="bold">12 pending</span> tasks
+                                </h3>
+                                <a href="#/todo">view all</a>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">New release v1.2 </span>
+                                                <span class="percent">30%</span>
+                                            </span>
+                                            <span class="progress">
+                                                <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">40% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">Application deployment</span>
+                                                <span class="percent">65%</span>
+                                            </span>
+                                            <span class="progress">
+                                                <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">65% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">Mobile app release</span>
+                                                <span class="percent">98%</span>
+                                            </span>
+                                            <span class="progress">
+                                                <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">98% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">Database migration</span>
+                                                <span class="percent">10%</span>
+                                            </span>
+                                            <span class="progress">
+                                                <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">10% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">Web server upgrade</span>
+                                                <span class="percent">58%</span>
+                                            </span>
+                                            <span class="progress">
+                                                <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">58% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">Mobile development</span>
+                                                <span class="percent">85%</span>
+                                            </span>
+                                            <span class="progress">
+                                                <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">85% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="task">
+                                                <span class="desc">New UI release</span>
+                                                <span class="percent">38%</span>
+                                            </span>
+                                            <span class="progress progress-striped">
+                                                <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">38% Complete</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END TODO DROPDOWN -->
+                    <!-- BEGIN LANGUAGE BAR -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-language hide">
+                        <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <img alt="" src="../assets/global/img/flags/us.png">
+                            <span class="langname"> EN </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li class="active">
+                                <a href="#">
+                                    <img alt="" src="../assets/global/img/flags/us.png"> English
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img alt="" src="../assets/global/img/flags/de.png"> German
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img alt="" src="../assets/global/img/flags/ru.png"> Russian
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img alt="" src="../assets/global/img/flags/fr.png"> French
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END LANGUAGE BAR -->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-user">
+                        <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                            <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
+                            <span class="username username-hide-on-mobile"> @(((FamilyMember.Models.UserModels)Session["User"]).FirstName) @(((FamilyMember.Models.UserModels)Session["User"]).LastName) </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a href="#/profile/dashboard">
+                                    <i class="icon-user"></i> My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-calendar"></i> My Calendar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-envelope-open"></i> My Inbox
+                                    <span class="badge badge-danger"> 3 </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#/todo">
+                                    <i class="icon-rocket"></i> My Tasks
+                                    <span class="badge badge-success"> 7 </span>
+                                </a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-lock"></i> Lock Screen
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Logout","Account")">
+                                    <i class="icon-key"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    @*<li class="dropdown dropdown-quick-sidebar-toggler">
+                        <a href="javascript:;" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                        </a>
+                        </li>*@
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+
+    <!-- END HEADER -->
+    <div class="clearfix"> </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+     
+        <!-- BEGIN SIDEBAR -->
+        <!--<div data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper"> </div>-->
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+                    <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+                    @*<li class="start nav-item">
+                        <a ui-sref="dashboard">
+                            <i class="icon-home"></i>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>*@
+                    <li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+                        <a ui-sref="member">
+                            <i class="icon-user"></i>
+                            <span class="title">Family Members</span>
+                        </a>
+                    </li>
+                    @*<li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+                        <a ui-sref="user">
+                            <i class="icon-user"></i>
+                            <span class="title">User</span>
+                        </a>
+                    </li>*@
+                    @*<li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2">
+                        <a ui-sref="staffmember">
+                            <i class="icon-user"></i>
+                            <span class="title">Staff Member</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2">
+                        <a ui-sref="customer">
+                            <i class="icon-user"></i>
+                            <span class="title">Customer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2 || @(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 3 || @(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+                        <a ui-sref="assignedservice">
+                            <i class="icon-user"></i>
+                            <span class="title">Assigned Services</span>
+                        </a>
+                    </li>*@
+                    <li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2 || @(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+                        <a ui-sref="pendingservice">
+                            <i class="icon-user"></i>
+                            <span class="title">Pending Services</span>
+                        </a>
+                    </li>
+                    @*<li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2 || @(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+                        <a ui-sref="rejectedservice">
+                            <i class="icon-user"></i>
+                            <span class="title">Rejected Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" ng-show="@(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 2 || @(((FamilyMember.Models.UserModels)Session["User"]).RoleId) == 1">
+                        <a ui-sref="completedservice">
+                            <i class="icon-user"></i>
+                            <span class="title">Completed Services</span>
+                        </a>
+                    </li>*@
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <!-- BEGIN STYLE CUSTOMIZER(optional) -->
+                <!--<div data-ng-include="'tpl/theme-panel.html'" data-ng-controller="ThemePanelController" class="theme-panel hidden-xs hidden-sm"> </div>-->
+                <!-- END STYLE CUSTOMIZER -->
+                <!-- BEGIN ACTUAL CONTENT -->
+                @RenderBody()
+                <div ui-view class="fade-in-up"> </div>
+                <!-- END ACTUAL CONTENT -->
+            </div>
+        </div>
+        <!-- END CONTENT -->
+        <!-- BEGIN QUICK SIDEBAR -->
+        <a href="javascript:;" class="page-quick-sidebar-toggler">
+            <i class="icon-login"></i>
+        </a>
+        <!--<div data-ng-include="'tpl/quick-sidebar.html'" data-ng-controller="QuickSidebarController" class="page-quick-sidebar-wrapper"></div>-->
+        <!-- END QUICK SIDEBAR -->
+    </div>
+    <form id="formServiceNotification">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal-ServiceNotification">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">New Service Notification</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label id="lblNotify"class="control-label"></label>
+                                            </div>
+                                        </div>
+                                    </div>                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" onclick="window.location.href='#/PendingService'" data-dismiss="modal" class="btn green">Click here to view pending services</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </form>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <!--<div data-ng-include="'tpl/footer.html'" data-ng-controller="FooterController" class="page-footer"> </div>-->
+    <div class="page-footer">
+        <div class="page-footer-inner"> 2017 &copy; The Family Member </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE JQUERY PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="../assets/global/plugins/respond.min.js"></script>
+    <script src="../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/angular-datatables.min.js"></script>
+    @*<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>*@
+    <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE JQUERY PLUGINS -->
+    <!-- BEGIN CORE ANGULARJS PLUGINS -->
+   
+    <script src="../assets/global/plugins/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/angularjs/angular-touch.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/angularjs/plugins/angular-ui-router.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/angular-block-ui.min.js"></script>
+    <!-- END CORE ANGULARJS PLUGINS -->
+    <!-- BEGIN APP LEVEL ANGULARJS SCRIPTS -->
+    @*<script src="js/main.js" type="text/javascript"></script>
+        <script src="js/directives.js" type="text/javascript"></script>*@
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/directives.js"></script>
+    <!-- END APP LEVEL ANGULARJS SCRIPTS -->
+    <!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
+    <script src="../assets/global/scripts/app.js" type="text/javascript"></script>
+    <script src="../assets/layouts/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="../assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+    <script src="../assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+    <script src="../assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/jquery-validation/js/jquery.validate.js"></script>
+    <script src="~/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+    <script src="~/assets/global/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script>
+        setInterval(alertfunc, 100000);
+        function alertfunc()
+        {
+            $.ajax({
+                type: "GET",
+                url: redirectionUrl + "api/Service/GetNewServiceCount",
+                data: param = "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data)
+                {
+                   
+                    if (data.number != 0)
+                    {
+                        $("#modal-ServiceNotification").modal("show");
+                        
+                        $("#lblNotify").html("You have " + data.number + " new service request(s)");
+                    }
+                }
+            });
+        }
+    </script>
+    @*<script src="~/Scripts/dropzone.js"></script>*@
+    <!-- END APP LEVEL JQUERY SCRIPTS -->
+    <!-- END JAVASCRIPTS -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+      
+            Layout.init();
+        });
+    </script>
+
+</body>
+<!-- END BODY -->
+</html>

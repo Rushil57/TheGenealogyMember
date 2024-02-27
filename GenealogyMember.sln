@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyMember", "FamilyMember\FamilyMember.csproj", "{591961E7-C727-450F-B893-0C0709C60D0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyMember.Entities", "FamilyMember.Entities\FamilyMember.Entities.csproj", "{08B10378-4D42-4B66-9D1C-FC7580DFABFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{591961E7-C727-450F-B893-0C0709C60D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591961E7-C727-450F-B893-0C0709C60D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591961E7-C727-450F-B893-0C0709C60D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591961E7-C727-450F-B893-0C0709C60D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B10378-4D42-4B66-9D1C-FC7580DFABFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B10378-4D42-4B66-9D1C-FC7580DFABFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B10378-4D42-4B66-9D1C-FC7580DFABFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B10378-4D42-4B66-9D1C-FC7580DFABFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://thefamilymember.visualstudio.com/
+		SccProjectUniqueName0 = FamilyMember.Entities\\FamilyMember.Entities.csproj
+		SccProjectName0 = FamilyMember.Entities
+		SccLocalPath0 = FamilyMember.Entities
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = FamilyMember\\FamilyMember.csproj
+		SccProjectName2 = FamilyMember
+		SccLocalPath2 = FamilyMember
+	EndGlobalSection
+EndGlobal

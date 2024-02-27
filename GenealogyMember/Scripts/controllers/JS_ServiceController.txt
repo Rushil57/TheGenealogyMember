@@ -1,0 +1,218 @@
+var MetronicApp = angular.module('MetronicApp', ['datatables']);
+MetronicApp.controller('ServiceController', function ($rootScope, $scope, $http, $timeout, assignedservice) {
+    debugger;
+    $scope.$on('$viewContentLoaded', function () {
+        // initialize core components
+        //Layout.init();
+        //App.initAjax();
+        //App.initComponents(); // init core components
+        //Layout.init();
+    });
+
+    // set sidebar closed and body solid layout mode
+    $rootScope.settings.layout.pageContentWhite = true;
+    $rootScope.settings.layout.pageBodySolid = false;
+    $rootScope.settings.layout.pageSidebarClosed = false;
+   
+   
+    $scope.getAssignedServices = function () {
+        debugger;
+        assignedservice.getAssignedServices()
+            .success(function (data) {
+                $scope.assignedServices = data;
+            }).error(function (error) {
+                toastr["error"]("Some error has occured.")
+            });
+    };
+    
+
+    $scope.getAssignedServices();
+    $scope.assignedServices = {};
+    $scope.assignedService = {};
+
+    $scope.proceedPayment = function()
+    {
+        $("#modal-ProceedPayment").modal("show");
+    }
+   
+    $scope.modalAssignedService = function(assignedService)
+    {
+        debugger;
+        assignedservice.getAssignedService(assignedService.ServiceId)
+                .success(function (data) {
+                    debugger;
+                    $scope.assignedService = data;
+                }).error(function (error) {
+                    toastr["error"]("Some error has occured.")
+                });
+        $("#modal-AssignedServices").modal("show");
+    }
+
+    $scope.saveAssignedServices = function (form) {
+        debugger;
+        if ($('#formAssignedServices').valid()) {
+            if (new Date($("#datepickerStart").val()) > new Date($("#datepickerEnd").val())) {
+                toastr["error"]("End Date should be greater or equal to Start Date.");
+                return false;
+            }
+            if ($("#datepickerStart").val() == $("#datepickerEnd").val()) {
+                var ttStart = $("#ddlStartTime").val();
+                var hrsStart = Number(ttStart.match(/^(\d+)/)[1]);
+                var mntsStart = Number(ttStart.match(/:(\d+)/)[1]);
+                var formatStart = ttStart.match(/\s(.*)$/)[1];
+                if (formatStart == "PM" && hrsStart < 12) hrsStart = hrsStart + 12;
+                if (formatStart == "AM" && hrsStart == 12) hrsStart = hrsStart - 12;
+                var hoursStart = hrsStart.toString();
+                var minutesStart = mntsStart.toString();
+                if (hrsStart < 10) hoursStart = "0" + hoursStart;
+                if (mntsStart < 10) minutesStart = "0" + minutesStart;
+                var timeStart = hoursStart + ":" + minutesStart;
+
+                var ttEnd = $("#ddlEndTime").val();
+                var hrsEnd = Number(ttEnd.match(/^(\d+)/)[1]);
+                var mntsEnd = Number(ttEnd.match(/:(\d+)/)[1]);
+                var formatEnd = ttEnd.match(/\s(.*)$/)[1];
+                if (formatEnd == "PM" && hrsEnd < 12) hrsEnd = hrsEnd + 12;
+                if (formatEnd == "AM" && hrsEnd == 12) hrsEnd = hrsEnd - 12;
+                var hoursEnd = hrsEnd.toString();
+                var minutesEnd = mntsEnd.toString();
+                if (hrsEnd < 10) hoursEnd = "0" + hoursEnd;
+                if (mntsEnd < 10) minutesEnd = "0" + minutesEnd;
+                var timeEnd = hoursEnd + ":" + minutesEnd;
+                if (timeEnd <= timeStart) {
+                    toastr["error"]("End time should be greater or equal to Start time.");
+                    return false;
+                }
+
+            }
+            assignedservice.saveAssignedServices($scope.assignedService).then(function (response) {
+                if (response.data.result) {
+                    $scope.getAssignedServices();
+                    $("#modal-AssignedServices").modal("hide");
+                    toastr["success"](response.data.message);
+                }
+                else {
+                    toastr["warning"](response.data.message);
+                }
+
+            }, function (error) {
+                toastr["error"]("Some error has occured.");
+            });
+        }
+    }
+  
+    
+    $scope.updateServiceDuration = function () {
+        assignedservice.updateServiceDuration($("#hdnServiceId").val(), $('#hdrTime').text()).then(function (response) {
+                if (response.data.result) {
+                    $scope.getAssignedServices();
+                    $("#modal-StartTimer").modal("hide");
+                    toastr["success"](response.data.message);
+                }
+                else {
+                    toastr["warning"](response.data.message);
+                }
+
+            }, function (error) {
+                toastr["error"]("Some error has occured.");
+            });
+        
+    }
+
+    var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0, minutes = 0, hours = 0,
+    t;
+
+    function add() {
+        seconds++;
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+
+        h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+        timer();
+    }
+    function timer() {
+        t = setTimeout(add, 1000);
+        $("#start").hide();
+        $("#stop").show();
+    }
+
+
+    /* Start button */
+    start.onclick = timer;
+   
+    /* Stop button */
+    stop.onclick = function () {
+        clearTimeout(t);
+        $("#start").show();
+        $("#stop").hide();
+    }
+
+    /* Clear button */
+    clear.onclick = function () {
+        clearTimeout(t);
+        h1.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+        $("#start").show();
+        $("#stop").hide();
+    }
+
+    $scope.modalStartTimer = function (serviceId) {
+        clearTimeout(t);
+        h1.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+        $("#start").show();
+        $("#stop").hide();
+        $("#modal-StartTimer").modal("show");     
+        $("#hdnServiceId").val(serviceId);
+    }
+
+});
+
+MetronicApp.factory('assignedservice', function ($http) {
+
+    var assignedservice = {};
+
+    assignedservice.getAssignedServices = function () {
+        return $http({
+            url: redirectionUrl + 'api/Service/GetAssignedServices',
+            method: "GET",
+         
+        });
+    }
+  
+    assignedservice.getAssignedService = function (serviceId) {
+        debugger;
+        return $http({
+            url: redirectionUrl + 'api/Service/GetAssignedService',
+            method: "GET",
+            params: { ServiceId: serviceId }
+        });
+    }
+    assignedservice.saveAssignedServices = function (model) {
+        return $http({
+            method: "POST",
+            url: redirectionUrl + "api/Service/SaveAssignedServices",
+            data: JSON.stringify(model),
+        });
+    };
+    assignedservice.updateServiceDuration = function (serviceId, serviceDuration) {
+        return $http({
+            url: redirectionUrl + 'api/Service/UpdateServiceDuration',
+            method: "POST",
+            params: { ServiceId: serviceId, ServiceDuration: serviceDuration }
+
+        });
+    }
+    return assignedservice;
+});
